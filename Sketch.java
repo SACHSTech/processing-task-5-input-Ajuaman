@@ -1,36 +1,90 @@
 import processing.core.PApplet;
+import processing.core.PImage;
 
 public class Sketch extends PApplet {
-	
-	
-  /**
-   * Called once at the beginning of execution, put your size all in this method
-   */
-  public void settings() {
-	// put your size call here
-    size(400, 400);
-  }
+  float flowerX;
+  float flowerY;
+  float petalSize = 30;
+  float petalDistance = petalSize / 2;
+  PImage img;
 
-  /** 
-   * Called once at the beginning of execution.  Add initial set up
-   * values here i.e background, stroke, fill etc.
-   */
-  public void setup() {
-    background(210, 255, 173);
-  }
+  boolean upPressed = false;
+  boolean downPressed = false;
+  boolean leftPressed = false;
+  boolean rightPressed = false;
 
-  /**
-   * Called repeatedly, anything drawn to the screen goes here
-   */
-  public void draw() {
+	public void settings() {
+	   size(600, 600);
+	}
 	  
-	// sample code, delete this stuff
-    stroke(128);
-    line(150, 25, 270, 350);  
+	public void setup() {
+	   background(125, 235, 250);
+	}
 
-    stroke(255);
-    line(50, 125, 70, 50);  
+	public void draw() {
+
+		flowerX = mouseX;
+    flowerY = mouseY;
+	   // GROUND
+	   fill(94, 219, 98);
+	   rect(0, 550, 600, 100);
+	   
+	   fill(242, 255, 59);
+	   ellipse(0, 0, 100, 100);
+
+     fill(255, 128, 0);
+  
+
+     if(keyPressed){
+      if(key == 'r'){
+        background(255,128,128);
+      }
+      else if(key == 'p'){
+        background(255,153,255);
+      }
+    }
+    
+    if(mousePressed){
+      ellipse(flowerX - petalDistance, flowerY - petalDistance, petalSize, petalSize);
+
+      // upper-right petal
+      ellipse(flowerX + petalDistance, flowerY - petalDistance, petalSize, petalSize);
+
+      // lower-left petal
+      ellipse(flowerX - petalDistance, flowerY + petalDistance, petalSize, petalSize);
+
+      // lower-right petal
+      ellipse(flowerX + petalDistance, flowerY + petalDistance, petalSize, petalSize);
+
+      // center petal
+      fill(255, 0, 0);
+      ellipse(flowerX, flowerY, petalSize, petalSize);
+    }
+
+	}
+  @Override
+  public void mouseReleased() {
+      super.mouseReleased();
+      img = loadImage("zabling.png");
+      image(img, mouseX, mouseY, width/10, height / 10);
+  }
+
+  @Override
+  public void mouseWheel() {
+      // TODO Auto-generated method stub
+      super.mouseWheel();
+      img = loadImage("floppa.jpg");
+      image(img, mouseX, mouseY, width/6, height/10);
   }
   
-  // define other methods down here.
+  @Override
+  public void keyTyped() {
+      // TODO Auto-generated method stub
+      super.keyTyped();
+      String message = "";
+      message += key;
+      text(message, 25, 150);
+  }
+
+
 }
