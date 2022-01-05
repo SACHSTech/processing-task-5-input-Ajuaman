@@ -6,7 +6,10 @@ public class Sketch extends PApplet {
   float flowerY;
   float petalSize = 30;
   float petalDistance = petalSize / 2;
-  PImage img;
+
+  int r = 242;
+  int g = 255;
+  int b = 59;
 
   boolean upPressed = false;
   boolean downPressed = false;
@@ -18,22 +21,21 @@ public class Sketch extends PApplet {
 	}
 	  
 	public void setup() {
-	   background(125, 235, 250);
+	   strokeWeight(1);
+     background(125, 235, 250);
 	}
 
 	public void draw() {
-
 		flowerX = mouseX;
     flowerY = mouseY;
-	   // GROUND
+
 	   fill(94, 219, 98);
 	   rect(0, 550, 600, 100);
 	   
-	   fill(242, 255, 59);
+	   fill(r, g, b);
 	   ellipse(0, 0, 100, 100);
 
      fill(255, 128, 0);
-  
 
      if(keyPressed){
       if(key == 'r'){
@@ -65,26 +67,59 @@ public class Sketch extends PApplet {
   @Override
   public void mouseReleased() {
       super.mouseReleased();
+      PImage img;
       img = loadImage("zabling.png");
       image(img, mouseX, mouseY, width/10, height / 10);
   }
 
   @Override
   public void mouseWheel() {
-      // TODO Auto-generated method stub
       super.mouseWheel();
+      PImage img;
       img = loadImage("floppa.jpg");
       image(img, mouseX, mouseY, width/6, height/10);
   }
-  
+
   @Override
-  public void keyTyped() {
-      // TODO Auto-generated method stub
-      super.keyTyped();
-      String message = "";
-      message += key;
-      text(message, 25, 150);
+  public void keyPressed() {
+    if(keyCode == UP){
+      r = 2;
+      g = 247;
+      b = 235;
+      upPressed = true;
+    }
+    else if(keyCode == DOWN){
+      r = 212;
+      g = 57;
+      b = 194;
+
+      downPressed = true;
+    }
+    else if(keyCode == LEFT){
+      r = 57;
+      g = 212;
+      b = 106;
+
+      leftPressed = true;
+    }
+    else if(keyCode == RIGHT){
+      r = 240;
+      g = 46;
+      b = 46;
+
+      rightPressed = true;
+    }
   }
 
+  @Override
+  public void keyReleased() {
+    r = 242; 
+    g = 255;
+    b = 59;
+    upPressed = false;
+    downPressed = false;
+    leftPressed = false;
+    rightPressed = false;
+  }
 
 }
